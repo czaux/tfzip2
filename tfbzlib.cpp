@@ -2,7 +2,7 @@
 //and re-writing them could be inconsistent
 #include "tfbzlib.h"
 #include "IOUtils.h"
-#include "../bzip2-1.0.6//bzlib_private.h"
+#include "bzip2-1.0.6//bzlib_private.h"
 
 typedef
 struct {

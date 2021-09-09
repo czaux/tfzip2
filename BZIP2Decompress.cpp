@@ -3,7 +3,7 @@
 #include <chrono>
 #include <future>
 #include <QDebug>
-#include "../bzip2-1.0.6//bzlib.h"
+#include "bzip2-1.0.6//bzlib.h"
 #include <algorithm>
 #include "BZIP2Decompress.h"
 
@@ -29,6 +29,7 @@ int asyncFileWrite2(std::vector<char> &newchunk, std::ofstream &filer, int64_t b
 
 bool validateArchive(const QString &inpath, std::function<void(int)> progressCallback, std::string *SourceFileHash)
 {
+    SHA1 SourceFileSHA1Digest;
 	BZFILE* bzf = NULL;
 	int   bzerr, bzerr_dummy, ret, nread, streamNo, i;
 	unsigned char   obuf[5000];
@@ -67,6 +68,7 @@ bool validateArchive(const QString &inpath, std::function<void(int)> progressCal
 			if (bzerr == BZ_DATA_ERROR_MAGIC) goto errhandler;
 			if (nread > 0)
 			{
+                SourceFileSHA1Digest.add(obuf, nread);
 				readbytes += nread;
 				int progress = std::max<int>(0, std::min<int>(1000, (readbytes * 1000 / filesize)));
 				progressCallback(progress);
@@ -95,7 +97,7 @@ bool validateArchive(const QString &inpath, std::function<void(int)> progressCal
 	if (ferror(zStream)) goto errhandler_io;
 	ret = fclose(zStream);
 	if (ret == EOF) goto errhandler_io;
-
+    SourceFileHash->assign(SourceFileSHA1Digest.getHash());
 	return true;
 
 errhandler:
@@ -824,7 +826,7 @@ void simpleBZ2DeCompress(const QString file_name, std::function<void(int)> progr
 			DecompressCleanup(&ifile, bzf);
 
 			//TODO Error handle
-			throw new WorkerException("SOMETHING DUN FUCKED");
+			throw new WorkerException("bad");
 		}
 
 		int loaded_len = 0;

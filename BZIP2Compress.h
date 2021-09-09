@@ -1,12 +1,13 @@
 #pragma once
 
-#include "TFZip.h"
+#include "tfzip2.h"
 #include <QObject>
 #include <atomic>
 #include <functional>
-#include "../hash-library/sha1.h"
+#include "hash-library/sha1.h"
 #include "WorkerException.h"
 #include "IOUtils.h"
+#include "bzip2-1.0.6//bzlib.h"
 #include "tfbzlib.h"
 class BZipCompressor : public QObject
 {

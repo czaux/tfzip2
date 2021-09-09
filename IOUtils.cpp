@@ -21,14 +21,22 @@ long long MyGetFileSize(FILE * handle)
 
 FILE * MyOpenFileRWSeq(const wchar_t * filepath, bool overwrite)
 {
-	wchar_t * mode = L"r+bS";
-	if (overwrite) mode = L"w+bS";
+    FILE * stream;
+    if (overwrite)
+    {
+        stream = _wfsopen(
+            filepath,
+            L"w+bS",
+            _SH_DENYWR
+        );
+    } else {
+        stream = _wfsopen(
+            filepath,
+            L"r+bS",
+            _SH_DENYWR
+        );
+    }
 
-	FILE * stream = _wfsopen(
-		filepath,
-		mode,
-		_SH_DENYWR
-	);
 	return stream;
 }
 #endif

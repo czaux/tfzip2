@@ -4,7 +4,7 @@
 #include <atomic>
 #include "BZProgressBar.h"
 #include "ProgressBarLayout.h"
-#include "../hash-library/sha1.h"
+#include "hash-library/sha1.h"
 #include <QThread>
 #include "WorkerException.h"
 #include "BZIP2Compress.h"
@@ -78,9 +78,9 @@ public:
 		//simpleBZ2DeCompress(destfile, progressfunc, &ExtractedSourceFileSha1Digest);
 		QString faa = "D:\\store2\\er\\maps\\dr_industrial_v2b.bsp.bz2";
 		//simpleBZ2DeCompress(destfile, progressfunc, &ExtractedSourceFileSha1Digest);
-		simpleBZ2DeCompress(faa3, progressfunc, &ExtractedSourceFileSha1Digest);
+        //simpleBZ2DeCompress(faa3, progressfunc, &ExtractedSourceFileSha1Digest);
 		//uncompressStream(faa);
-		bool valid = validateArchive(destfile, progressfunc, &ExtractedSourceFileSha1Digest);
+        bool valid = validateArchive(destfile, progressfunc, &ExtractedSourceFileSha1Digest);
 		if (!valid)
 		{
 			throw "hi";

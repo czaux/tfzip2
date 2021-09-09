@@ -1,5 +1,5 @@
 #pragma once
-#include "../hash-library/sha1.h"
+#include "hash-library/sha1.h"
 #include "WorkerException.h"
 #include "IOUtils.h"
 #include "tfbzlib.h"

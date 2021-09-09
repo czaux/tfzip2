@@ -3,10 +3,10 @@
 #include <chrono>
 #include <future>
 #include <QDebug>
-#include "../bzip2-1.0.6//bzlib.h"
+#include "bzip2-1.0.6\bzlib.h"
 #include <algorithm>
 #include "BZIP2Compress.h"
-#include "TFZip.h"
+#include "tfzip2.h"
 #include <QThread>
 #include <QTime>
 #include <QDir>
@@ -222,16 +222,17 @@ void BZipCompressor::compressStream(QString &inpath, QString &outpath, std::func
 
 	int workFactor = 30;
 	int blockSize100k = 9;
-
-	const std::wstring infilepath = inpath.toStdWString();
+    QString ppath = QDir::toNativeSeparators(inpath);
+    const std::wstring infilepath = ppath.toStdWString();
 	FILE * stream = MyOpenFileRWSeq(infilepath.c_str(), false);
 	if (stream == NULL)
 	{
 		throw new WorkerException("IOERROR1er");
 	}
 	
-	const std::wstring outfilepath = outpath.toStdWString();
-	FILE * zStream = MyOpenFileRWSeq(infilepath.c_str(), overwrite);
+     QString ppath2 = QDir::toNativeSeparators(outpath);
+    const std::wstring outfilepath = ppath2.toStdWString();
+    FILE * zStream = MyOpenFileRWSeq(outfilepath.c_str(), overwrite);
 	if (zStream == NULL)
 	{
 		throw new WorkerException("IOERROR1er");

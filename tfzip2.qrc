@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="TFZip">
+    <file>Engi.png</file>
+    <file>engiicon.ico</file>
+    <file>engiiconmac.icns</file>
+  </qresource>
+</RCC>
